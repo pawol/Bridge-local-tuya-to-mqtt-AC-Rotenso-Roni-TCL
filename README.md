@@ -25,6 +25,7 @@ Template pliku jest do pobrania z tego repozytorium.
 
 Skopiowanie skryptu mostkujący klimatyzator tuya Rotenso Roni o nazwie ac_pokoj.py oraz ac_pokoj_settings.json
 do przykładowo foldera:
+
     /home/pwoloszyn/domoticz/scripts/tuya/AC/
 
 Instalacja python venv i tinytuya:
