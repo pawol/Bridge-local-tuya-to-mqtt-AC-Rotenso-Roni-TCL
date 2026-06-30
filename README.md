@@ -86,67 +86,69 @@ mosquitto_sub -v -t 'tuya/ac_pokoj/status'
 i sterować nim:
 
 🟩 1. POWER (DPS 1)
+on /off
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"power":"on"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"power":"off"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"power":"on"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"power":"off"}'
 
 🟩 2. TEMPERATURA (DPS 2)
-(16–31°C)
+16–31
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"temp":24}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"temp":24}'
 
 🟩 3. TRYB PRACY (DPS 4)
-
 cold / hot / wet / wind / auto
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"cold"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"hot"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"wet"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"wind"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"auto"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"cold"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"hot"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"wet"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"wind"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"auto"}'
 
 🟩 4. FAN SPEED (DPS 5)
-
 low / mid / high / mute / auto
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"low"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"mid"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"high"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"mute"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"auto"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"low"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"mid"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"high"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"mute"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"auto"}'
 
 🟩 5. SLEEP (DPS 105)
 normal / off
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"sleep":"normal"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"sleep":"off"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"sleep":"normal"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"sleep":"off"}'
 
 🟩 6. BITMASKA (DPS 123)
-(display, eco, health, anti_mildew, beeper)
 DISPLAY
-
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"display":true}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"display":false}'
+display, eco, health, anti_mildew, beeper
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"display":true}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"display":false}'
 
 ECO
+true / false
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"eco":true}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"eco":false}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"eco":true}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"eco":false}'
 
 HEALTH
+true / false
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"health":true}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"health":false}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"health":true}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"health":false}'
 
 ANTI‑MILDEW
+true / false
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"anti_mildew":true}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"anti_mildew":false}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"anti_mildew":true}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"anti_mildew":false}'
 
 BEEPER
+true / false
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"beeper":"on"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"beeper":"off"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"beeper":"on"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"beeper":"off"}'
 
 🟩 7. SWING PION (VERTICAL) — DPS 113 / 126 / 133
     0 = OFF
@@ -154,18 +156,18 @@ mosquitto_pub -t tuya/ac_pokoj/set -m '{"beeper":"off"}'
     2 = swing 1–3
     3 = swing 3–5
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"0"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"1"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"2"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"3"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"0"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"1"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"2"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"3"}'
 
 Pozycje pionowe (DPS 126):
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"1"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"2"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"3"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"4"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"5"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"1"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"2"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"3"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"4"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"5"}'
 
 🟩 8. SWING POZIOM (HORIZONTAL) — DPS 114 / 127
     0 = OFF
@@ -174,19 +176,19 @@ mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"5"}'
     3 = swing 2–4
     4 = swing 3–5
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"0"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"1"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"2"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"3"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"4"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"0"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"1"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"2"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"3"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"4"}'
 
 Pozycje poziome (DPS 127):
 
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"1"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"2"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"3"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"4"}'
-mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"5"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"1"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"2"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"3"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"4"}'
+    mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"5"}'
 
 
 Utworzyć w Domoticz wirtualne switche/ selectory/setpointy itd. według schematu:
