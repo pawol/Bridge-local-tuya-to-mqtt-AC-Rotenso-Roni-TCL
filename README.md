@@ -16,8 +16,178 @@ i włączyć/przedłużyć suybskrypcje w Developer Platform / Cloud /Cloud Serv
 
 local_key pojawi się w onie Debugging Results jako Response
 
+
 Zapisać device_ID (uuid w Responce) i local_key (tez w Response) do pliku ac_pokoj_settings.json
 Template pliku do pobrania.
+
+
+Skopiowanie skryptu mostkujący klimatyzator tuya Rotenso Roni o nazwie ac_pokoj.py oraz ac_pokoj_settings.json
+do przykładowo foldera:
+/home/pwoloszyn/domoticz/scripts/tuya/AC/
+
+Instalacja python venv i tinytuya:
+
+sudo apt update
+sudo apt install python3-venv -y
+cd /home/pwoloszyn
+python3 -m venv tinytuya_env
+source /home/pwoloszyn/tinytuya_env/bin/activate
+pip install --upgrade pip
+pip install tinytuya paho-mqtt
+
+
+Autostart tinytuya przez systemd:
+
+sudo nano /etc/systemd/system/ac_pokoj.service
+i wkleić treść zmodyfikowaną pod siebie.
+
+testowo możesz już teraz uruchomić skrypt przez:
+/home/pwoloszyn/tinytuya/bin/python /home/pwoloszyn/domoticz/scripts/tuya/AC/ac_pokoj.py
+
+Podobnie z ac_sniffer.py, Skrypt snifuje komunikację klimatyzatora z tuya gdy naciskamy przyciski pilota.
+/home/pwoloszyn/tinytuya/bin/python /home/pwoloszyn/domoticz/scripts/tuya/AC/ac_snifer.py
+
+#--------------------------------------------------------
+[Unit]
+Description=Klimatyzacja w pokoju (Tuya MQTT)
+After=network.target
+
+[Service]
+Type=simple
+User=pwoloszyn
+WorkingDirectory=/home/pwoloszyn/domoticz/scripts/tuya/AC
+ExecStart=/home/pwoloszyn/tinytuya_env/bin/python /home/pwoloszyn/domoticz/scripts/tuya/AC/ac_pokoj.py
+Restart=always
+RestartSec=5
+#StandardOutput=append:/tmp/ac_pokoj.log
+#StandardError=append:/tmp/ac_pokoj.log
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target
+#--------------------------------------------------------
+
+Zapewnienie autostartu tinytuya jako systemd:
+
+sudo systemctl daemon-reload
+sudo systemctl enable ac_pokoj.service
+sudo systemctl start ac_pokoj.service
+sudo systemctl status ac_pokoj.service
+
+Pamiętaj, że każda modyfikacja skryptu lub jego konfiguracji musi zakończyć się restartem systemd:
+sudo systemctl restart ac_pokoj
+
+
+
+Po uruchomieniu skryptu można obserwować status klimatyzatora:
+mosquitto_sub -v -t 'tuya/ac_pokoj/status'
+
+i sterować nim:
+🟩 1. POWER (DPS 1)
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"power":"on"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"power":"off"}'
+
+🟩 2. TEMPERATURA (DPS 2)
+(16–31°C)
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"temp":24}'
+
+🟩 3. TRYB PRACY (DPS 4)
+
+cold / hot / wet / wind / auto
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"cold"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"hot"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"wet"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"wind"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"mode":"auto"}'
+
+🟩 4. FAN SPEED (DPS 5)
+
+low / mid / high / mute / auto
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"low"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"mid"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"high"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"mute"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"fan":"auto"}'
+
+🟩 5. SLEEP (DPS 105)
+normal / off
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"sleep":"normal"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"sleep":"off"}'
+
+🟩 6. BITMASKA (DPS 123)
+(display, eco, health, anti_mildew, beeper)
+DISPLAY
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"display":true}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"display":false}'
+
+ECO
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"eco":true}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"eco":false}'
+
+HEALTH
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"health":true}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"health":false}'
+
+ANTI‑MILDEW
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"anti_mildew":true}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"anti_mildew":false}'
+
+BEEPER
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"beeper":"on"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"beeper":"off"}'
+
+🟩 7. SWING PION (VERTICAL) — DPS 113 / 126 / 133
+    0 = OFF
+    1 = pełny swing 1–5
+    2 = swing 1–3
+    3 = swing 3–5
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"0"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"1"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"2"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"3"}'
+
+Pozycje pionowe (DPS 126):
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"1"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"2"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"3"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"4"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"5"}'
+
+🟩 8. SWING POZIOM (HORIZONTAL) — DPS 114 / 127
+    0 = OFF
+    1 = swing 1–5
+    2 = swing 1–3
+    3 = swing 2–4
+    4 = swing 3–5
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"0"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"1"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"2"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"3"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"4"}'
+
+Pozycje poziome (DPS 127):
+
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"1"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"2"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"3"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"4"}'
+mosquitto_pub -t tuya/ac_pokoj/set -m '{"hpos":"5"}'
+
+
 Utworzyć w Domoticz wirtualne switche/ selectory/setpointy itd. według schematu:
 Power-Switch (On/Off)
 Ustawiana temperatura-jako Setpoint (Thermostat/Setpoint)
