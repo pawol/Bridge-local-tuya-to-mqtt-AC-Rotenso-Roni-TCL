@@ -247,31 +247,32 @@ Autostart tinytuya przez systemd:
 sudo nano /etc/systemd/system/ac_pokoj.service
 i wkleić treść zmodyfikowaną pod siebie.
 
+Przykład pliku systemd:
 
-#---------------------------
-[Unit]
-Description=Klimatyzacja w pokoju (Tuya MQTT)
-After=network.target
+    #---------------------------
+    [Unit]
+    Description=Klimatyzacja w pokoju (Tuya MQTT)
+    After=network.target
 
-[Service]
-Type=simple
-User=pwoloszyn
-WorkingDirectory=/home/pwoloszyn/domoticz/scripts/tuya/AC
-ExecStart=/home/pwoloszyn/tinytuya_env/bin/python /home/pwoloszyn/domoticz/scripts/tuya/AC/ac_pokoj.py
-Restart=always
-RestartSec=5
-#StandardOutput=append:/tmp/ac_pokoj.log
-#StandardError=append:/tmp/ac_pokoj.log
-StandardOutput=null
-StandardError=null
+    [Service]
+    Type=simple
+    User=pwoloszyn
+    WorkingDirectory=/home/pwoloszyn/domoticz/scripts/tuya/AC
+    ExecStart=/home/pwoloszyn/tinytuya_env/bin/python /home/pwoloszyn/domoticz/scripts/tuya/AC/ac_pokoj.py
+    Restart=always
+    RestartSec=5
+    #StandardOutput=append:/tmp/ac_pokoj.log
+    #StandardError=append:/tmp/ac_pokoj.log
+    StandardOutput=null
+    StandardError=null
 
-[Install]
-WantedBy=multi-user.target
-#--------------------------------
+    [Install]
+    WantedBy=multi-user.target
+    #--------------------------------
 
 Zapewnienie autostartu tinytuya jako systemd:
 
-sudo systemctl daemon-reload
-sudo systemctl enable ac_pokoj.service
-sudo systemctl start ac_pokoj.service
-sudo systemctl status ac_pokoj.service
+    sudo systemctl daemon-reload
+    sudo systemctl enable ac_pokoj.service
+    sudo systemctl start ac_pokoj.service
+    sudo systemctl status ac_pokoj.service
