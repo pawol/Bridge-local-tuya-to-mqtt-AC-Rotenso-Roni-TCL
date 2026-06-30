@@ -125,9 +125,9 @@ true / false
     mosquitto_pub -t tuya/ac_pokoj/set -m '{"beeper":"off"}'
 
 🟩 7. SWING PION (VERTICAL) — DPS 113 / 126 / 133
-    0 = OFF
-    1 = pełny swing 1–5
-    2 = swing 1–3
+    0 = OFF,
+    1 = pełny swing 1–5,
+    2 = swing 1–3,
     3 = swing 3–5
 
     mosquitto_pub -t tuya/ac_pokoj/set -m '{"vswing":"0"}'
@@ -144,10 +144,10 @@ Pozycje pionowe (DPS 126):
     mosquitto_pub -t tuya/ac_pokoj/set -m '{"vpos":"5"}'
 
 🟩 8. SWING POZIOM (HORIZONTAL) — DPS 114 / 127
-    0 = OFF
-    1 = swing 1–5
-    2 = swing 1–3
-    3 = swing 2–4
+    0 = OFF,
+    1 = swing 1–5,
+    2 = swing 1–3,
+    3 = swing 2–4,
     4 = swing 3–5
 
     mosquitto_pub -t tuya/ac_pokoj/set -m '{"hswing":"0"}'
