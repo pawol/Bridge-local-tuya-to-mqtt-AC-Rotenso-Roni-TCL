@@ -40,9 +40,11 @@ Autostart tinytuya przez systemd:
 i wkleić treść zmodyfikowaną pod siebie.
 
 testowo możesz już teraz uruchomić skrypt przez:
+
     /home/pwoloszyn/tinytuya/bin/python /home/pwoloszyn/domoticz/scripts/tuya/AC/ac_pokoj.py
 
 Podobnie z ac_sniffer.py, Skrypt snifuje komunikację klimatyzatora z tuya gdy naciskamy przyciski pilota.
+
     /home/pwoloszyn/tinytuya/bin/python /home/pwoloszyn/domoticz/scripts/tuya/AC/ac_snifer.py
 
 Po uruchomieniu skryptu ac_pokoj_py w python venv od razu można obserwować status klimatyzatora:
@@ -211,7 +213,8 @@ pip install tinytuya paho-mqtt
 
 Autostart tinytuya przez systemd:
 
-sudo nano /etc/systemd/system/ac_pokoj.service
+    sudo nano /etc/systemd/system/ac_pokoj.service
+    
 i wkleić treść zmodyfikowaną pod siebie.
 
 Przykład pliku systemd:
